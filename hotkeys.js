@@ -45,7 +45,7 @@ HOTKEY = function(){
 	this.set_pressed = function(event){
 		key_code = event.keyCode;
 		hot_key.pressed_watcher.push(key_code);
-		hot_key.pressed_watcher.filter(helpers.unique);
+		hot_key.pressed_watcher = hot_key.pressed_watcher.filter(helpers.unique);
 	}
 	this.remove_pressed = function(event){
 		key_code = event.keyCode;
@@ -75,6 +75,9 @@ HOTKEY = function(){
 		}
 		key_combination_code = hot_key.translate(key_combination);
 		check = key_combination_code.every(helpers.isKeyMatched);
+		if (check) {
+			callback();
+		}
 		return check;
 	}
 }
@@ -83,5 +86,4 @@ var helpers = new HELPERS();
 document.addEventListener("keydown", hot_key.set_pressed, false);
 document.addEventListener("keyup", hot_key.remove_pressed, false);
 $(document).keydown(function(event) {
-	console.log(hot_key.on("shift+a"));
 });
