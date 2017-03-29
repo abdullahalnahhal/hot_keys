@@ -2,6 +2,10 @@ HELPERS = function(){
 	unique = function(value, index, self){
 		return self.indexOf(value) === index;
 	}
+	areEquals = function(element,index){
+		console.log("SSSS");
+		return element === hot_key.pressed_watcher[index]; 
+	}
 }
 HOTKEY = function(){
 	this.pressed_watcher = [];
@@ -62,12 +66,14 @@ HOTKEY = function(){
 		}
 		return codes;
 	}
-	this.on = function(key_combination){
+	this.on = function(key_combination,callback){
 		key_combination = key_combination.split("+");
-		key_combination_code = hot_key.translate(key_combination);
-		for (var i = 0; i < key_combination_code.length; i++) {
-
+		if (key_combination.length != hot_key.pressed_watcher.length) {
+			return false;
 		}
+		key_combination_code = hot_key.translate(key_combination);
+		check = JSON.stringify(key_combination_code.sort()) === JSON.stringify(hot_key.pressed_watcher.sort())
+		return check;
 	}
 }
 var hot_key = new HOTKEY();
@@ -75,5 +81,5 @@ var helpers = new HELPERS();
 document.addEventListener("keydown", hot_key.set_pressed, false);
 document.addEventListener("keyup", hot_key.remove_pressed, false);
 $(document).keydown(function(event) {
-	hot_key.on("shift+a");
+	console.log(hot_key.on("shift+a"));
 });
