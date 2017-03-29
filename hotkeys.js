@@ -1,3 +1,8 @@
+HELPERS = function(){
+	unique = function(value, index, self){
+		return self.indexOf(value) === index;
+	}
+}
 HOTKEY = function(){
 	this.pressed_watcher = [];
 	this.key = {
@@ -34,6 +39,7 @@ HOTKEY = function(){
 	this.set_pressed = function(event){
 		key_code = event.keyCode;
 		hot_key.pressed_watcher.push(key_code);
+		hot_key.pressed_watcher.filter(helpers.unique);
 	}
 	this.remove_pressed = function(event){
 		key_code = event.keyCode;
@@ -42,10 +48,32 @@ HOTKEY = function(){
 			hot_key.pressed_watcher.splice(index, 1);
 		}
 	}
-	this.is_pressed = function("key"){
-		
+	this.is_pressed = function(key){
+		key_code = this.get_code(key);
+		if (hot_key.pressed_watcher.indexOf(key_code) != -1) {
+			return true;
+		}
+	}
+	this.translate = function(key_combination_code){
+		codes = [];
+		for (var i = 0; i < key_combination_code.length; i++) {
+			code = hot_key.key[key_combination_code[i]];
+			codes.push(code);
+		}
+		return codes;
+	}
+	this.on = function(key_combination){
+		key_combination = key_combination.split("+");
+		key_combination_code = hot_key.translate(key_combination);
+		for (var i = 0; i < key_combination_code.length; i++) {
+
+		}
 	}
 }
 var hot_key = new HOTKEY();
+var helpers = new HELPERS();
 document.addEventListener("keydown", hot_key.set_pressed, false);
 document.addEventListener("keyup", hot_key.remove_pressed, false);
+$(document).keydown(function(event) {
+	hot_key.on("shift+a");
+});
