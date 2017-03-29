@@ -1,10 +1,12 @@
 HELPERS = function(){
-	unique = function(value, index, self){
+	this.unique = function(value, index, self){
 		return self.indexOf(value) === index;
 	}
-	areEquals = function(element,index){
-		console.log("SSSS");
-		return element === hot_key.pressed_watcher[index]; 
+	this.isKeyMatched =function(element, index){
+		 return element === hot_key.pressed_watcher[index]; 
+	}
+	this.isArraysEqyual = function(arr1 , arr2){
+		JSON.stringify(arr1.sort()) === JSON.stringify(arr1.sort())
 	}
 }
 HOTKEY = function(){
@@ -72,7 +74,7 @@ HOTKEY = function(){
 			return false;
 		}
 		key_combination_code = hot_key.translate(key_combination);
-		check = JSON.stringify(key_combination_code.sort()) === JSON.stringify(hot_key.pressed_watcher.sort())
+		check = key_combination_code.every(helpers.isKeyMatched);
 		return check;
 	}
 }
