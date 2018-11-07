@@ -13,7 +13,7 @@ HOTKEY = function(){
 	this.pressed_watcher = [];
 	this.key = {
 		// main keys
-		"b-space":8,"tab":9,"enter":10,"shift":16,"ctr":17,"alt":18,"pb":19,"caps#":20,"num#":144,"scroll#":145,"esc":27,"l-win":91,"r-win":92,
+		"b-space":8,"tab":9,"enter":13,"shift":16,"ctr":17,"alt":18,"pb":19,"caps#":20,"num#":144,"scroll#":145,"esc":27,"l-win":91,"r-win":92,
 		// main board
 		"pg-down":34,"pg-up":33,"end":35,"home":36,"insert":45,"delete":46,
 		// arrows
